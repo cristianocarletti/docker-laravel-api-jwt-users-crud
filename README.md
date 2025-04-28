@@ -16,8 +16,6 @@ Este projeto é um ambiente completo de desenvolvimento para **Laravel** usando 
 
 ## 📦 Subindo o ambiente
 
-### Passo 1: Clonando o repositório
-
 Clone este repositório para sua máquina local:
 
 ```bash
