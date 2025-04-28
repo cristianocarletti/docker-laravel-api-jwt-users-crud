@@ -18,6 +18,31 @@ class AuthController extends Controller
         $this->middleware(JWTMiddleware::class, ['except' => ['login', 'register']]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Login de usuário",
+     *     description="Autentica o usuário e retorna um token JWT",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *             @OA\Property(property="password", type="string", example="senha123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Token gerado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", example="jwt_token_aqui")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Credenciais inválidas"
+     *     ),
+     * )
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -48,7 +73,30 @@ class AuthController extends Controller
             ]
         ]);
     }
-
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="Registro de usuário",
+     *     description="Registra o usuário e retorna um token JWT",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *              @OA\Property(property="name", type="string", example="Maria"),
+     *              @OA\Property(property="lastname", type="string", example="Silva"),
+     *              @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *             @OA\Property(property="password", type="string", example="senha123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Token gerado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", example="jwt_token_aqui")
+     *         )
+     *     ),
+     * )
+     */
     public function register(Request $request)
     {
         $request->validate([

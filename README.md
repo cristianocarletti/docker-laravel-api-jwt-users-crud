@@ -32,6 +32,8 @@ Credenciais:
 Usuário: root
 Senha: root
 
+Documentação http://localhost:8080/api/documentation
+
 ⚙️ Configurações do Laravel Aqui estão as configurações recomendadas para o arquivo .env
 
 APP_NAME=Laravel
@@ -78,3 +80,6 @@ docker-compose up
 
 🔧 Configuração de Produção
 docker-compose exec ssl certbot --nginx
+
+Executar testes:
+docker-compose exec app php artisan test

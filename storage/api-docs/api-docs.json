@@ -1,0 +1,383 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Laravel autenticação JWT crud de usuários",
+        "description": "Documentação da API de Usuários com JWT, Redis e Docker",
+        "contact": {
+            "email": "cristianocarletti@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "summary": "Login de usuário",
+                "description": "Autentica o usuário e retorna um token JWT",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "maria.silva8@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token gerado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "jwt_token_aqui"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "summary": "Registro de usuário",
+                "description": "Registra o usuário e retorna um token JWT",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Maria"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "Silva"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+55 (11) 94321-6788"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "maria.silva8@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token gerado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "jwt_token_aqui"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/index": {
+            "post": {
+                "summary": "Lista de usuários",
+                "description": "Lista de usuários",
+                "operationId": "2f7dd5ae2fd43f8f2b0ea1e4280926b6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Maria"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "maria.silva8@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Solicitação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Maria"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "Silva"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 (11) 94321-6788"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "maria.silva8@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "post": {
+                "summary": "Registro de usuário",
+                "description": "Registra o usuário e retorna um token JWT",
+                "operationId": "089999749fbdec98922de2f74ba8d540",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Maria"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "Silva"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+55 (11) 94321-6788"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "maria.silva8@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Maria"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "Silva"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 (11) 94321-6788"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "maria.silva8@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{1}": {
+            "get": {
+                "summary": "Exibe dados de usuário",
+                "description": "Exibe dados de usuário",
+                "operationId": "d8d9fd78f0eeaba402eaf5c1b5035392",
+                "responses": {
+                    "200": {
+                        "description": "Solicitação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Maria"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "Silva"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 (11) 94321-6788"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "maria.silva8@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Atualiza dados de usuário",
+                "description": "Atualiza dados de usuário",
+                "operationId": "c81c701d8deb762603a52bc7ac406446",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Maria"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "example": "Silva"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+55 (11) 94321-6788"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "maria.silva8@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Maria"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "Silva"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 (11) 94321-6788"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "maria.silva8@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Exclui um usuário",
+                "description": "Exclui um usuário",
+                "operationId": "eb9038159a4e3690e8898bcf677a617d",
+                "responses": {
+                    "200": {
+                        "description": "Usuário excluído com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Maria"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "Silva"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 (11) 94321-6788"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "maria.silva8@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -19,7 +19,30 @@ class UserController extends Controller
     {
         $this->middleware(JWTMiddleware::class, ['except' => ['login', 'register']]);
     }
-
+    /**
+     * @OA\Post(
+     *     path="/api/user/index",
+     *     summary="Lista de usuários",
+     *     description="Lista de usuários",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *              @OA\Property(property="name", type="string", example="Maria"),
+     *              @OA\Property(property="email", type="string", example="maria.silva8@example.com")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Solicitação bem-sucedida",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Maria"),
+     *             @OA\Property(property="lastname", type="string", example="Silva"),
+     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *         )
+     *     ),
+     * )
+     */
     public function index(Request $request)
     {
         try {
@@ -46,7 +69,6 @@ class UserController extends Controller
             });
 
             return ResponseHelper::success($users);
-            
         } catch (JWTException $e) {
             return response()->json([
                 'status' => 'error',
@@ -54,7 +76,33 @@ class UserController extends Controller
             ], 401); // 401 Unauthorized
         }
     }
-
+    /**
+     * @OA\Post(
+     *     path="/api/user",
+     *     summary="Registro de usuário",
+     *     description="Registra o usuário e retorna um token JWT",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *              @OA\Property(property="name", type="string", example="Maria"),
+     *              @OA\Property(property="lastname", type="string", example="Silva"),
+     *              @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *              @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *              @OA\Property(property="password", type="string", example="senha123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Usuário criado com sucesso",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Maria"),
+     *             @OA\Property(property="lastname", type="string", example="Silva"),
+     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *         )
+     *     ),
+     * )
+     */
     public function store(Request $request)
     {
         try {
@@ -79,9 +127,8 @@ class UserController extends Controller
 
             // Invalidar o cache relacionado a usuários
             Cache::store('redis')->forget('users:all');
-            
-            return ResponseHelper::success($user, 'Usuário criado com sucesso', 201);
 
+            return ResponseHelper::success($user, 'Usuário criado com sucesso', 201);
         } catch (JWTException $e) {
             return response()->json([
                 'status' => 'error',
@@ -89,7 +136,23 @@ class UserController extends Controller
             ], 401); // 401 Unauthorized
         }
     }
-
+    /**
+     * @OA\Get(
+     *     path="/api/user/{1}",
+     *     summary="Exibe dados de usuário",
+     *     description="Exibe dados de usuário",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Solicitação bem-sucedida",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Maria"),
+     *             @OA\Property(property="lastname", type="string", example="Silva"),
+     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *         )
+     *     ),
+     * )
+     */
     public function show($id)
     {
         try {
@@ -97,7 +160,6 @@ class UserController extends Controller
             $user = User::find($id);
 
             return ResponseHelper::success($user);
-
         } catch (JWTException $e) {
             return response()->json([
                 'status' => 'error',
@@ -105,17 +167,36 @@ class UserController extends Controller
             ], 401); // 401 Unauthorized
         }
     }
-
+    /**
+     * @OA\Put(
+     *     path="/api/user/{1}",
+     *     summary="Atualiza dados de usuário",
+     *     description="Atualiza dados de usuário",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *              @OA\Property(property="name", type="string", example="Maria"),
+     *              @OA\Property(property="lastname", type="string", example="Silva"),
+     *              @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *              @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *              @OA\Property(property="password", type="string", example="senha123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Usuário atualizado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Maria"),
+     *             @OA\Property(property="lastname", type="string", example="Silva"),
+     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *         )
+     *     ),
+     * )
+     */
     public function update(Request $request, User $user)
     {
         try {
-            /* if ($user->id !== auth()->user()->id) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Você não tem permissão para atualizar este usuário',
-                ], 403); // 403 Forbidden
-            } */
-
             $request->validate([
                 'name' => 'required|string|max:100',
                 'lastname' => 'required|string|max:100',
@@ -142,7 +223,6 @@ class UserController extends Controller
             Cache::store('redis')->forget('users:all');
 
             return ResponseHelper::success($user, 'Usuário atualizado com sucesso', 200);
-
         } catch (JWTException $e) {
             return response()->json([
                 'status' => 'error',
@@ -150,7 +230,23 @@ class UserController extends Controller
             ], 401); // 401 Unauthorized
         }
     }
-
+    /**
+     * @OA\Delete(
+     *     path="/api/user/{1}",
+     *     summary="Exclui um usuário",
+     *     description="Exclui um usuário",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Usuário excluído com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Maria"),
+     *             @OA\Property(property="lastname", type="string", example="Silva"),
+     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
+     *         )
+     *     ),
+     * )
+     */
     public function destroy($id)
     {
         try {
@@ -161,7 +257,6 @@ class UserController extends Controller
             Cache::store('redis')->forget('users:all');
 
             return ResponseHelper::success($user, 'Usuário excluído com sucesso', 200);
-
         } catch (JWTException $e) {
             return response()->json([
                 'status' => 'error',
