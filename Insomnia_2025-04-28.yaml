@@ -1,0 +1,347 @@
+type: collection.insomnia.rest/5.0
+name: Magnum Bank
+meta:
+  id: wrk_cf7c53c440334d95924a8f27ea4308e9
+  created: 1745602596291
+  modified: 1745602596291
+collection:
+  - name: user
+    meta:
+      id: fld_b495a5b0da054a98b9001fc3ba04c40e
+      created: 1745602933266
+      modified: 1745602935886
+      sortKey: -1745602611483
+    children:
+      - url: "{{ _.localhost_80_api }}/user/index"
+        name: index
+        meta:
+          id: req_565e83965a5d420f8d1eda6c7d9d6598
+          created: 1745602939645
+          modified: 1745771364675
+          isPrivate: false
+          sortKey: -1745602943809
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "",
+            	"email": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+            id: pair_7ed9578b307149c5a1583937faedace9
+          - id: pair_7bba12e44ae643eb9245c20d006f636c
+            name: Accept
+            value: application/json
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc0NTc3MTM1NSwiZXhwIjoxNzQ1Nzc0OTU1LCJuYmYiOjE3NDU3NzEzNTUsImp0aSI6IkVSU2U1Q1c5VlNMUjE3OEoiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.PlcFPfsSCcoobEKwyXtafCj3128pLBQS9yV4-APkXAk
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.localhost_80_api }}/user/1"
+        name: show
+        meta:
+          id: req_4f39de4ef22541eab09d5d827b69c39c
+          created: 1745603011711
+          modified: 1745771369623
+          isPrivate: false
+          sortKey: -1745602877300.1875
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+            id: pair_0f4490a519024c77bc8722d66cf46ac7
+          - id: pair_7583ff79642547c3b347ee9a80b7cd0d
+            name: Accept
+            value: application/json
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc0NTc3MTM1NSwiZXhwIjoxNzQ1Nzc0OTU1LCJuYmYiOjE3NDU3NzEzNTUsImp0aSI6IkVSU2U1Q1c5VlNMUjE3OEoiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.PlcFPfsSCcoobEKwyXtafCj3128pLBQS9yV4-APkXAk
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.localhost_80_api }}/user"
+        name: store
+        meta:
+          id: req_5d614ce503944b76b6632c020e3621bc
+          created: 1745603036542
+          modified: 1745776594007
+          isPrivate: false
+          sortKey: -1745602882416.25
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Annamae Homenick",
+            	"lastname": "Marquardt",
+            	"phone": "+55 (11) 94321-6789",
+            	"email": "qratke@example.com",
+            	"password": "senha123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+            id: pair_286ccf8e221841d6b0967de9fdb858d2
+          - id: pair_a72b218547c84825a5458333104dfc15
+            name: Accept
+            value: application/json
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc0NTc3NjU4MCwiZXhwIjoxNzQ1NzgwMTgwLCJuYmYiOjE3NDU3NzY1ODAsImp0aSI6InFiTHFnaDg4MGlLd0dTU2EiLCJzdWIiOiI2IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.qoAUJIKOEsqKRBHBX7yT7cJaaGFplTlR2xD8ENHRBB4
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.localhost_80_api }}/user/8"
+        name: update
+        meta:
+          id: req_f67333016500429cb2173fd71ab8cfcc
+          created: 1745603050823
+          modified: 1745771372094
+          isPrivate: false
+          sortKey: -1745602872184.125
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Maria",
+            	"lastname": "Silva",
+            	"phone": "+55 (11) 94321-6788",
+            	"email": "maria.silva8@example.com",
+            	"password": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+            id: pair_c9ae8cdffb924e69a45634866d8af307
+          - id: pair_b31dcd20647e4ba092d29ed3acea6fe8
+            name: Accept
+            value: application/json
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc0NTc3MTM1NSwiZXhwIjoxNzQ1Nzc0OTU1LCJuYmYiOjE3NDU3NzEzNTUsImp0aSI6IkVSU2U1Q1c5VlNMUjE3OEoiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.PlcFPfsSCcoobEKwyXtafCj3128pLBQS9yV4-APkXAk
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.localhost_80_api }}/user/12"
+        name: delete
+        meta:
+          id: req_391b8c1539a441b1b1e5f454cbcb597f
+          created: 1745603076754
+          modified: 1745773123634
+          isPrivate: false
+          sortKey: -1745602867068.0625
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+            id: pair_5ffe2783b0234f689741b20f39ba2804
+          - id: pair_4f52559f3182476abd9853943ace7bfc
+            name: Accept
+            value: application/json
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc0NTc3MTM1NSwiZXhwIjoxNzQ1Nzc0OTU1LCJuYmYiOjE3NDU3NzEzNTUsImp0aSI6IkVSU2U1Q1c5VlNMUjE3OEoiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.PlcFPfsSCcoobEKwyXtafCj3128pLBQS9yV4-APkXAk
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - url: "{{ _.localhost_80_api }}/refresh"
+    name: refresh
+    meta:
+      id: req_4e6ab089dc114cdaa955d57920edca0f
+      created: 1745602611582
+      modified: 1745767115539
+      isPrivate: false
+      sortKey: -1745602854405.5
+    method: POST
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.1
+        id: pair_aa2a26a826ba4ed7b88fa92954d9c76f
+      - id: pair_c2831cd278414bbeab0bdb3970ea7cfb
+        name: Accept
+        value: application/json
+        disabled: false
+    authentication:
+      type: bearer
+      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc0NTYwNzgxMiwiZXhwIjoxNzQ1NjExNDEyLCJuYmYiOjE3NDU2MDc4MTIsImp0aSI6ImtkQmIwYThtc2JNOUtwd0YiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.zf5jh7FSBtdybTbyUiQ0udcgFzTPMyxYo_G-EzPIEJM
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.localhost_80_api }}/logout"
+    name: logout
+    meta:
+      id: req_e82a142ead274464949582097148861f
+      created: 1745602850493
+      modified: 1745767125312
+      isPrivate: false
+      sortKey: -1745602850493
+    method: POST
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.1
+        id: pair_b064fbe172ef42e8ad978cd6fe782212
+      - id: pair_9729f1c9fdc242538ce211583e04407e
+        name: Accept
+        value: application/json
+        disabled: false
+    authentication:
+      type: bearer
+      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9yZWZyZXNoIiwiaWF0IjoxNzQ1NjA3ODEyLCJleHAiOjE3NDU2MTE3NzIsIm5iZiI6MTc0NTYwODE3MiwianRpIjoiRlRaSGp1RHg0N2ViYVpkaSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ybB0zeFS3ZtUurs-eCdlErLAlaNW8sgwVyTvqTMixH8
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.localhost_80_api }}/login"
+    name: login
+    meta:
+      id: req_7e588e898e9d4f65b2518910a79b1936
+      created: 1745602858318
+      modified: 1745776577840
+      isPrivate: false
+      sortKey: -1745602858318
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "admin@user.com",
+        	"password": "senha123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.localhost_80_api }}/register"
+    name: register
+    meta:
+      id: req_e4582a777ffe49c280e8cbd5192fd34f
+      created: 1745602861952
+      modified: 1745776565880
+      isPrivate: false
+      sortKey: -1745602861952
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Admin",
+        	"lastname": "User",
+        	"phone": "+55 (11) 94321-6789",
+        	"email": "admin@user.com",
+        	"password": "senha123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ac67f2f46fe740999896f45dff29f110
+      - name: User-Agent
+        value: insomnia/11.0.1
+        id: pair_ce21a3c778fc484da6582e5fd46f9323
+      - id: pair_ac401557ae4e4d869c0d5b2e5e866a18
+        name: Accept
+        value: application/json
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_38a060a220b15364595f7ef1afd374c4af596e87
+    created: 1745602596323
+    modified: 1745609481278
+  cookies:
+    - key: XSRF-TOKEN
+      value: eyJpdiI6IkpRTXVJR2ZEdzdFTTVsSVZFTWNIRVE9PSIsInZhbHVlIjoiaU90SVVyaEpoUHZjR3o3UmdNSldzL05FcnppVEFtT2JuVmNpM1FUL3FmUExoY2psNm9EeVk0RjBtL0d4ekV0UnNzT3A1NVJDV2srQVJrcnNuaVFTV3ZvUmJoR1YxUFlUTG02YThHRXJWaWJtR2FDY0x6LzJ2UVJBcmFVNFNDQnIiLCJtYWMiOiJlNGY3ZTI1NDhkNTIzZGY3NjYxNTgzNWVlMTI1MDYyZWY3MDY1OTZjZjk2YTBjYTQ5YWQ0YWQ5ZTA0OWY4NTAyIiwidGFnIjoiIn0%3D
+      maxAge: 7200
+      domain: 127.0.0.1
+      path: /
+      hostOnly: true
+      creation: 2025-04-25T17:57:15.160Z
+      lastAccessed: 2025-04-25T19:31:21.278Z
+      sameSite: lax
+      id: b9085e16-b328-431e-954b-869f73cab498
+    - key: laravel_session
+      value: eyJpdiI6InFYZ0xnSXZSREpkMnZRM1BDREVJMlE9PSIsInZhbHVlIjoiVGZyMEdMS3VuZ3lqRmRORkx2OFdQaWJoM0lUL3NMRVZCekMzMXdDY3kyNzRiK2ZyMlEzMy84SUMvS21VdGgxWUZuakNyTWx5OWJNcmxDblNpQ3h3VkhlamFsUFpndVRKWk1tL0pUZ1RmaEM2Z1drZVltbURWK1JSaDhnajlZOXAiLCJtYWMiOiIzNzUyNmE0MDE2OTliODcyYzA2YTBhZmQ2NjlkZmRkODA2YjEyOWJlMWQwZjcwY2ExMTBjYWQ2ZDEwMDIwOGNiIiwidGFnIjoiIn0%3D
+      maxAge: 7200
+      domain: 127.0.0.1
+      path: /
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-04-25T17:57:15.161Z
+      lastAccessed: 2025-04-25T19:31:21.278Z
+      sameSite: lax
+      id: 1796dd24-3430-4172-9a9e-3269185c759e
+environments:
+  name: Base Environment
+  meta:
+    id: env_38a060a220b15364595f7ef1afd374c4af596e87
+    created: 1745602596320
+    modified: 1745602842738
+    isPrivate: false
+  data:
+    localhost_80_api: http://127.0.0.1:80/api
