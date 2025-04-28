@@ -14,9 +14,7 @@ Este projeto é um ambiente completo de desenvolvimento para **Laravel** usando 
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-## 📦 Subindo o ambiente
-
-Clone este repositório para sua máquina local:
+📦 Subindo o ambiente
 
 ```bash
 git clone https://github.com/cristianocarletti/docker-laravel-api-jwt-users-crud.git
@@ -34,7 +32,8 @@ Credenciais:
 Usuário: root
 Senha: root
 
-## ⚙️ Configurações do Laravel Aqui estão as configurações recomendadas para o arquivo .env
+⚙️ Configurações do Laravel Aqui estão as configurações recomendadas para o arquivo .env
+
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:randomstring
@@ -52,7 +51,7 @@ REDIS_HOST=redis
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 
-## 🛠️ Comandos úteis
+🛠️ Comandos úteis
 Para acessar o shell do container Laravel e rodar comandos Artisan, execute:
 docker-compose exec laravel bash
 
@@ -70,12 +69,12 @@ docker-compose exec laravel php artisan config:clear
 # Atualizar cache
 docker-compose exec laravel php artisan config:cache
 
-## Gerenciando os containers
+Gerenciando os containers
 # Parar todos os containers
 docker-compose down
 
 # Subir os containers novamente
 docker-compose up
 
-## 🔧 Configuração de Produção
+🔧 Configuração de Produção
 docker-compose exec ssl certbot --nginx
