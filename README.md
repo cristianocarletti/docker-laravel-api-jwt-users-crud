@@ -1,102 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel Docker Setup
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto é um ambiente completo de desenvolvimento para **Laravel** usando **Docker**, com suporte a:
 
-## 1 - Update the database data in your .env file, for example:
+- PHP 8.1 (FPM)
+- MySQL 8.0
+- Redis
+- Nginx (como proxy reverso)
+- phpMyAdmin
+- Certbot (para HTTPS automático, opcional)
 
-DB_CONNECTION=mysql<BR>
-DB_HOST=127.0.0.1<BR>
-DB_PORT=3306<BR>
-DB_DATABASE=laravel_api_jwt_auth_users_crud<BR>
-DB_USERNAME=root<BR>
-DB_PASSWORD=<BR>
+## 🚀 Requisitos
 
-## 2 - RUN:
-1 - composer install<BR>
-2 - php artisan migrate<BR>
-3 - php artisan jwt:secret<BR>
-4 - php artisan serve --port=80 (you can choose the port or not pass the port parameter then it will run on the default port)<BR>
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-## 3 - ROUTE LIST
-to see the list of routes run:<BR>
-php artisan route:list<BR>
-<code>
-| Domain | Method   | URI                   | Name | Action                                                     | Middleware            
-               |
-+--------+----------+-----------------------+------+------------------------------------------------------------+--------------------------------------+
-|        | GET|HEAD | /                     |      | Closure                                                    | web                   
-               |
-|        | POST     | api/login             |      | App\Http\Controllers\AuthController@login                  | api                   
-               |
-|        | POST     | api/logout            |      | App\Http\Controllers\AuthController@logout                 | api                   
-               |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | POST     | api/refresh           |      | App\Http\Controllers\AuthController@refresh                | api                   
-               |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | POST     | api/register          |      | App\Http\Controllers\AuthController@register               | api                   
-               |
-|        | DELETE   | api/user/destroy/{id} |      | App\Http\Controllers\UserController@destroy                | api                   
-               |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | GET|HEAD | api/user/index        |      | App\Http\Controllers\UserController@index                  | api                                  |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | GET|HEAD | api/user/show/{id}    |      | App\Http\Controllers\UserController@show                   | api                                  |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | POST     | api/user/store        |      | App\Http\Controllers\UserController@store                  | api                                  |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | POST     | api/user/update       |      | App\Http\Controllers\UserController@update                 | api                                  |
-|        |          |                       |      |                                                            | App\Http\Middleware\Authenticate:api |
-|        | GET|HEAD | sanctum/csrf-cookie   |      | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show | web                                  |
-+--------+----------+-----------------------+------+------------------------------------------------------------+--------------------------------------+
-</code>
-<BR>
-api/register<BR>
-BODY:<BR>
-{<BR>
-	"email": "your@email.com",<BR>
-	"name": "Your Name",<BR>
-	"password": "yourpassword"<BR>
-}<BR>
-WILL RETURN A TOKEN<BR>
-"auth": {<BR>
-		"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",<BR>
-		"type": "bearer"<BR>
-	}<BR>
-<BR>
-api/login<BR>
-BODY:<BR>
-{<BR>
-	"email": "your@email.com",<BR>
-	"password": "yourpassword"<BR>
-}<BR>
-WILL RETURN A TOKEN<BR>
-"auth": {<BR>
-		"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",<BR>
-		"type": "bearer"<BR>
-	}<BR>
-<BR>
-FOR ALL OTHER ENDPOINTS, USE THE TOKEN RETURNED AT LOGIN IN THE HEAD:<BR>
-Bearer Token:<BR>
-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9....<BR>
-<BR>
-api/user/store<BR>
-BODY:<BR>
-{<BR>
-	"name": "Your Dog",<BR>
-	"email": "yourdog@email.com",<BR>
-	"password" : "yourdogspassword"<BR>
-}<BR>
-<BR>
-api/user/update<BR>
-BODY:<BR>
-{<BR>
-	"id": 2,<BR>
-	"name": "Your Dogs name",<BR>
-	"email": "yourdogsname@email.com"<BR>
-}
+## 📦 Subindo o ambiente
+
+### Passo 1: Clonando o repositório
+
+Clone este repositório para sua máquina local:
+
+```bash
+git clone https://github.com/cristianocarletti/docker-laravel-api-jwt-users-crud.git
+cd docker-laravel-api-jwt-users-crud
+
+```bash
+docker-compose up --build
+
+## Acessando o ambiente
+
+Aplicação Laravel: http://localhost:8080
+
+phpMyAdmin: http://localhost:8081
+Credenciais:
+Usuário: root
+Senha: root
+
+## ⚙️ Configurações do Laravel Aqui estão as configurações recomendadas para o arquivo .env
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:randomstring
+APP_DEBUG=true
+APP_URL=http://localhost:8080
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=laravel
+DB_PASSWORD=secret
+
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+## 🛠️ Comandos úteis
+Para acessar o shell do container Laravel e rodar comandos Artisan, execute:
+docker-compose exec laravel bash
+
+Dentro do container, você pode rodar diversos comandos do Laravel:
+# Rodar migrations
+docker-compose exec laravel php artisan migrate
+
+# Criar um novo usuário admin via tinker
+docker-compose exec laravel php artisan tinker
+App\Models\User::create(['name' => 'Admin', 'email' => 'admin@user.com', 'password' => bcrypt('password123')]);
+
+# Limpar cache
+docker-compose exec laravel php artisan config:clear
+
+# Atualizar cache
+docker-compose exec laravel php artisan config:cache
+
+## Gerenciando os containers
+# Parar todos os containers
+docker-compose down
+
+# Subir os containers novamente
+docker-compose up
+
+## 🔧 Configuração de Produção
+docker-compose exec ssl certbot --nginx
