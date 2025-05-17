@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
-use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate as JWTMiddleware;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\User;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate as JWTMiddleware;
 
 class AuthController extends Controller
 {
@@ -151,6 +152,12 @@ class AuthController extends Controller
     {
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
+
+            // Invalida o token JWT
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+            // Limpa todo o cache Redis
+            Cache::flush(); // limpa todas as chaves, cuidado em produção
 
             return response()->json([
                 'status' => 'success',
