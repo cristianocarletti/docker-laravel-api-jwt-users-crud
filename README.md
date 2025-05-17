@@ -47,8 +47,8 @@ Aplicação Laravel: http://localhost:8080
 
 phpMyAdmin: http://localhost:8081
 Credenciais:
-Usuário: root
-Senha: root
+Usuário: laravel
+Senha: secret
 
 Documentação http://localhost:8080/api/documentation
 
