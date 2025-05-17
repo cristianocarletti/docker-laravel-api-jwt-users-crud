@@ -11,6 +11,9 @@
     "paths": {
         "/api/login": {
             "post": {
+                "tags": [
+                    "Autenticação"
+                ],
                 "summary": "Login de usuário",
                 "description": "Autentica o usuário e retorna um token JWT",
                 "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
@@ -19,6 +22,10 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
                                 "properties": {
                                     "email": {
                                         "type": "string",
@@ -36,14 +43,30 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Token gerado com sucesso",
+                        "description": "Login realizado com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "token": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "jwt_token_aqui"
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "auth": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "jwt_token_aqui"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "bearer"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -52,13 +75,33 @@
                         }
                     },
                     "401": {
-                        "description": "Credenciais inválidas"
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Não autorizado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/register": {
             "post": {
+                "tags": [
+                    "Autenticação"
+                ],
                 "summary": "Registro de usuário",
                 "description": "Registra o usuário e retorna um token JWT",
                 "operationId": "8a56853624e025573120a09a4c75d468",
@@ -67,6 +110,13 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "lastname",
+                                    "phone",
+                                    "email",
+                                    "password"
+                                ],
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -96,14 +146,34 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Token gerado com sucesso",
+                        "description": "Usuário registrado com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "token": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "jwt_token_aqui"
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário criado com sucesso"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "auth": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "jwt_token_aqui"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "bearer"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -116,11 +186,14 @@
         },
         "/api/user/index": {
             "post": {
+                "tags": [
+                    "Usuários"
+                ],
                 "summary": "Lista de usuários",
-                "description": "Lista de usuários",
+                "description": "Lista usuários com filtros opcionais de nome e e-mail",
                 "operationId": "2f7dd5ae2fd43f8f2b0ea1e4280926b6",
                 "requestBody": {
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -131,7 +204,7 @@
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "maria.silva8@example.com"
+                                        "example": "maria@example.com"
                                     }
                                 },
                                 "type": "object"
@@ -141,26 +214,46 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Solicitação bem-sucedida",
+                        "description": "Lista de usuários",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "Maria"
+                                            "example": "success"
                                         },
-                                        "lastname": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "Silva"
+                                            "example": null
                                         },
-                                        "phone": {
-                                            "type": "string",
-                                            "example": "+55 (11) 94321-6788"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "maria.silva8@example.com"
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Maria"
+                                                    },
+                                                    "lastname": {
+                                                        "type": "string",
+                                                        "example": "Silva"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "+55 (11) 94321-6788"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "maria@example.com"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -173,14 +266,23 @@
         },
         "/api/user": {
             "post": {
+                "tags": [
+                    "Usuários"
+                ],
                 "summary": "Registro de usuário",
-                "description": "Registra o usuário e retorna um token JWT",
                 "operationId": "089999749fbdec98922de2f74ba8d540",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "lastname",
+                                    "phone",
+                                    "email",
+                                    "password"
+                                ],
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -196,7 +298,7 @@
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "maria.silva8@example.com"
+                                        "example": "maria@example.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -209,27 +311,44 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Usuário criado com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "Maria"
+                                            "example": "success"
                                         },
-                                        "lastname": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "Silva"
+                                            "example": "Usuário criado com sucesso"
                                         },
-                                        "phone": {
-                                            "type": "string",
-                                            "example": "+55 (11) 94321-6788"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "maria.silva8@example.com"
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Maria"
+                                                },
+                                                "lastname": {
+                                                    "type": "string",
+                                                    "example": "Silva"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+55 (11) 94321-6788"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "maria@example.com"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -240,33 +359,54 @@
                 }
             }
         },
-        "/api/user/{1}": {
+        "/api/user/{id}": {
             "get": {
-                "summary": "Exibe dados de usuário",
-                "description": "Exibe dados de usuário",
-                "operationId": "d8d9fd78f0eeaba402eaf5c1b5035392",
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Exibe um usuário",
+                "operationId": "d8f696420bea235f4916124c9ba1c507",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Solicitação bem-sucedida",
+                        "description": "Usuário retornado com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "Maria"
+                                            "example": "success"
                                         },
-                                        "lastname": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "Silva"
+                                            "example": null
                                         },
-                                        "phone": {
-                                            "type": "string",
-                                            "example": "+55 (11) 94321-6788"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "maria.silva8@example.com"
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Maria"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "maria@example.com"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -277,9 +417,21 @@
                 }
             },
             "put": {
-                "summary": "Atualiza dados de usuário",
-                "description": "Atualiza dados de usuário",
-                "operationId": "c81c701d8deb762603a52bc7ac406446",
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Atualiza um usuário",
+                "operationId": "5e09c26a0abb2b1bf040badb2d9c69ba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -288,23 +440,23 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "example": "Maria"
+                                        "example": "João"
                                     },
                                     "lastname": {
                                         "type": "string",
-                                        "example": "Silva"
+                                        "example": "Pereira"
                                     },
                                     "phone": {
                                         "type": "string",
-                                        "example": "+55 (11) 94321-6788"
+                                        "example": "(11) 91234-5678"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "maria.silva8@example.com"
+                                        "example": "joao@example.com"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "example": "senha123"
+                                        "example": "novaSenha123"
                                     }
                                 },
                                 "type": "object"
@@ -319,21 +471,30 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "Maria"
+                                            "example": "success"
                                         },
-                                        "lastname": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "Silva"
+                                            "example": "Usuário atualizado com sucesso"
                                         },
-                                        "phone": {
-                                            "type": "string",
-                                            "example": "+55 (11) 94321-6788"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "maria.silva8@example.com"
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "João"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "joao@example.com"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -344,31 +505,52 @@
                 }
             },
             "delete": {
-                "summary": "Exclui um usuário",
-                "description": "Exclui um usuário",
-                "operationId": "eb9038159a4e3690e8898bcf677a617d",
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Remove um usuário",
+                "operationId": "f8d7aea516ee464d0afee90f3a1a1722",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Usuário excluído com sucesso",
+                        "description": "Usuário removido com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "status": {
                                             "type": "string",
-                                            "example": "Maria"
+                                            "example": "success"
                                         },
-                                        "lastname": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "Silva"
+                                            "example": "Usuário excluído com sucesso"
                                         },
-                                        "phone": {
-                                            "type": "string",
-                                            "example": "+55 (11) 94321-6788"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "maria.silva8@example.com"
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "João"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "joao@example.com"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -379,5 +561,15 @@
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Autenticação",
+            "description": "Autenticação"
+        },
+        {
+            "name": "Usuários",
+            "description": "Usuários"
+        }
+    ]
 }

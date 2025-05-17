@@ -20,8 +20,26 @@ Este projeto é um ambiente completo de desenvolvimento para **Laravel** usando 
 git clone https://github.com/cristianocarletti/docker-laravel-api-jwt-users-crud.git
 cd docker-laravel-api-jwt-users-crud
 
-```bash
-docker-compose up --build
+1. cp .env.example .env
+
+2. docker-compose up --build -d
+
+3. docker-compose exec laravel composer install
+
+4. docker-compose exec laravel php artisan key:generate
+
+5. docker-compose exec laravel php artisan jwt:secret
+
+6. docker-compose exec laravel php artisan migrate:fresh --seed
+
+7. docker-compose exec laravel bash
+
+8. chmod -R 775 storage bootstrap/cache
+
+9. chown -R www-data:www-data storage bootstrap/cache
+
+10. docker-compose exec laravel php artisan l5-swagger:generate
+
 
 ## Acessando o ambiente
 
@@ -44,7 +62,7 @@ APP_URL=http://localhost:8080
 
 DB_CONNECTION=mysql
 DB_HOST=mysql
-DB_PORT=3306
+DB_PORT=3308
 DB_DATABASE=laravel
 DB_USERNAME=laravel
 DB_PASSWORD=secret
@@ -71,6 +89,9 @@ docker-compose exec laravel php artisan config:clear
 # Atualizar cache
 docker-compose exec laravel php artisan config:cache
 
+# optimize
+docker-compose exec laravel php artisan optimize:clear
+
 Gerenciando os containers
 # Parar todos os containers
 docker-compose down
@@ -82,4 +103,4 @@ docker-compose up
 docker-compose exec ssl certbot --nginx
 
 Executar testes:
-docker-compose exec app php artisan test
+docker-compose exec laravel php artisan test

@@ -9,7 +9,6 @@ use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate as JWTMiddleware;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
-use App\Helpers\ValidationHelper;
 
 class AuthController extends Controller
 {
@@ -22,25 +21,36 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/login",
      *     summary="Login de usuário",
+     *     tags={"Autenticação"},
      *     description="Autentica o usuário e retorna um token JWT",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
+     *             required={"email", "password"},
      *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
      *             @OA\Property(property="password", type="string", example="senha123")
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Token gerado com sucesso",
+     *         description="Login realizado com sucesso",
      *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string", example="jwt_token_aqui")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="user", type="object"),
+     *             @OA\Property(property="auth", type="object",
+     *                 @OA\Property(property="token", type="string", example="jwt_token_aqui"),
+     *                 @OA\Property(property="type", type="string", example="bearer")
+     *             )
      *         )
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Credenciais inválidas"
-     *     ),
+     *         description="Credenciais inválidas",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Não autorizado")
+     *         )
+     *     )
      * )
      */
     public function login(Request $request)
@@ -51,14 +61,12 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-
         $token = JWTAuth::attempt($credentials);
 
         if (!$token) {
-
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
+                'message' => 'Não autorizado',
             ], 401);
         }
 
@@ -73,28 +81,37 @@ class AuthController extends Controller
             ]
         ]);
     }
+
     /**
      * @OA\Post(
      *     path="/api/register",
      *     summary="Registro de usuário",
+     *     tags={"Autenticação"},
      *     description="Registra o usuário e retorna um token JWT",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *              @OA\Property(property="name", type="string", example="Maria"),
-     *              @OA\Property(property="lastname", type="string", example="Silva"),
-     *              @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
+     *             required={"name", "lastname", "phone", "email", "password"},
+     *             @OA\Property(property="name", type="string", example="Maria"),
+     *             @OA\Property(property="lastname", type="string", example="Silva"),
+     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
      *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
      *             @OA\Property(property="password", type="string", example="senha123")
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Token gerado com sucesso",
+     *         description="Usuário registrado com sucesso",
      *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string", example="jwt_token_aqui")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Usuário criado com sucesso"),
+     *             @OA\Property(property="user", type="object"),
+     *             @OA\Property(property="auth", type="object",
+     *                 @OA\Property(property="token", type="string", example="jwt_token_aqui"),
+     *                 @OA\Property(property="type", type="string", example="bearer")
+     *             )
      *         )
-     *     ),
+     *     )
      * )
      */
     public function register(Request $request)
@@ -118,9 +135,10 @@ class AuthController extends Controller
         ]);
 
         $token = JWTAuth::fromUser($user);
+
         return response()->json([
             'status' => 'success',
-            'message' => 'User created successfully',
+            'message' => 'Usuário criado com sucesso',
             'user' => $user,
             'auth' => [
                 'token' => $token,
@@ -131,11 +149,19 @@ class AuthController extends Controller
 
     public function logout()
     {
-        JWTAuth::logout();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully logged out',
-        ]);
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Logout realizado com sucesso.',
+            ]);
+        } catch (JWTException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Erro ao realizar logout.',
+            ], 500);
+        }
     }
 
     public function refresh()

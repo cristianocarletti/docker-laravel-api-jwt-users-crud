@@ -29,6 +29,8 @@ COPY redis.conf /usr/local/etc/redis/redis.conf
 
 # RUN chmod -R 775 public/docs
 # RUN chown -R www-data:www-data public/docs
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 # RUN php artisan scribe:generate --verbose
 
