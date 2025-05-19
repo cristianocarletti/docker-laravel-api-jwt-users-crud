@@ -50,7 +50,7 @@ Credenciais:
 Usuário: laravel
 Senha: secret
 
-Documentação http://localhost:8080/api/documentation
+Documentação http://localhost:8080/docs
 
 ⚙️ Configurações do Laravel Aqui estão as configurações recomendadas para o arquivo .env
 

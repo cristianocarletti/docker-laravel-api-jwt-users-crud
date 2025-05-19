@@ -19,40 +19,15 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     path="/api/login",
-     *     summary="Login de usuário",
-     *     tags={"Autenticação"},
-     *     description="Autentica o usuário e retorna um token JWT",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"email", "password"},
-     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
-     *             @OA\Property(property="password", type="string", example="senha123")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Login realizado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="user", type="object"),
-     *             @OA\Property(property="auth", type="object",
-     *                 @OA\Property(property="token", type="string", example="jwt_token_aqui"),
-     *                 @OA\Property(property="type", type="string", example="bearer")
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Credenciais inválidas",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="error"),
-     *             @OA\Property(property="message", type="string", example="Não autorizado")
-     *         )
-     *     )
-     * )
+     * Login do usuário
+     *
+     * Autentica o usuário e retorna o token JWT.
+     *
+     * @unauthenticated
+     * @bodyParam email string required E-mail do usuário. Exemplo: maria@example.com
+     * @bodyParam password string required Senha do usuário. Exemplo: senha123
+     * @response 200 {"status":"success","user":{},"auth":{"token":"...","type":"bearer"}}
+     * @response 401 {"status":"error","message":"Não autorizado"}
      */
     public function login(Request $request)
     {
@@ -84,36 +59,17 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     path="/api/register",
-     *     summary="Registro de usuário",
-     *     tags={"Autenticação"},
-     *     description="Registra o usuário e retorna um token JWT",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"name", "lastname", "phone", "email", "password"},
-     *             @OA\Property(property="name", type="string", example="Maria"),
-     *             @OA\Property(property="lastname", type="string", example="Silva"),
-     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
-     *             @OA\Property(property="email", type="string", example="maria.silva8@example.com"),
-     *             @OA\Property(property="password", type="string", example="senha123")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Usuário registrado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="message", type="string", example="Usuário criado com sucesso"),
-     *             @OA\Property(property="user", type="object"),
-     *             @OA\Property(property="auth", type="object",
-     *                 @OA\Property(property="token", type="string", example="jwt_token_aqui"),
-     *                 @OA\Property(property="type", type="string", example="bearer")
-     *             )
-     *         )
-     *     )
-     * )
+     * Registro de usuário
+     *
+     * Registra o usuário e retorna o token JWT.
+     *
+     * @unauthenticated
+     * @bodyParam name string required Nome do usuário. Exemplo: Maria
+     * @bodyParam lastname string required Sobrenome. Exemplo: Silva
+     * @bodyParam phone string required Telefone. Exemplo: +55 (11) 94321-6788
+     * @bodyParam email string required E-mail. Exemplo: maria@example.com
+     * @bodyParam password string required Senha. Exemplo: senha123
+     * @response 200 {"status":"success","message":"Usuário criado com sucesso","user":{},"auth":{"token":"...","type":"bearer"}}
      */
     public function register(Request $request)
     {
@@ -148,6 +104,15 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Logout do usuário
+     *
+     * Invalida o token JWT e limpa o cache.
+     *
+     * @authenticated
+     * @response 200 {"status":"success","message":"Logout realizado com sucesso."}
+     * @response 500 {"status":"error","message":"Erro ao realizar logout."}
+     */
     public function logout()
     {
         try {
@@ -171,6 +136,14 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Refresh do token JWT
+     *
+     * Retorna novo token e dados do usuário.
+     *
+     * @authenticated
+     * @response 200 {"status":"success","user":{},"auth":{"token":"...","type":"bearer"}}
+     */
     public function refresh()
     {
         return response()->json([

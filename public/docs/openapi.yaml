@@ -1,0 +1,494 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: 'Login do usuário'
+      operationId: loginDoUsurio
+      description: 'Autentica o usuário e retorna o token JWT.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  user: {  }
+                  auth:
+                    token: ...
+                    type: bearer
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  user:
+                    type: object
+                    properties: {  }
+                  auth:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: ...
+                      type:
+                        type: string
+                        example: bearer
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                  message: 'Não autorizado'
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: 'Não autorizado'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'E-mail do usuário. Exemplo: maria@example.com'
+                  example: ymitchell@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Senha do usuário. Exemplo: senha123'
+                  example: '''nuZ\hY)7rLQ'
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: 'Registro de usuário'
+      operationId: registroDeUsurio
+      description: 'Registra o usuário e retorna o token JWT.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'Usuário criado com sucesso'
+                  user: {  }
+                  auth:
+                    token: ...
+                    type: bearer
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Usuário criado com sucesso'
+                  user:
+                    type: object
+                    properties: {  }
+                  auth:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: ...
+                      type:
+                        type: string
+                        example: bearer
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Nome do usuário. Exemplo: Maria'
+                  example: aut
+                  nullable: false
+                lastname:
+                  type: string
+                  description: 'Sobrenome. Exemplo: Silva'
+                  example: quis
+                  nullable: false
+                phone:
+                  type: string
+                  description: 'Telefone. Exemplo: +55 (11) 94321-6788'
+                  example: aliquam
+                  nullable: false
+                email:
+                  type: string
+                  description: 'E-mail. Exemplo: maria@example.com'
+                  example: ahmad51@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Senha. Exemplo: senha123'
+                  example: 'NY=[1W(Ja3yij]'
+                  nullable: false
+              required:
+                - name
+                - lastname
+                - phone
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: 'Logout do usuário'
+      operationId: logoutDoUsurio
+      description: 'Invalida o token JWT e limpa o cache.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'Logout realizado com sucesso.'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Logout realizado com sucesso.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                  message: 'Erro ao realizar logout.'
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: 'Erro ao realizar logout.'
+      tags:
+        - Endpoints
+  /api/refresh:
+    post:
+      summary: 'Refresh do token JWT'
+      operationId: refreshDoTokenJWT
+      description: 'Retorna novo token e dados do usuário.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  user: {  }
+                  auth:
+                    token: ...
+                    type: bearer
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  user:
+                    type: object
+                    properties: {  }
+                  auth:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: ...
+                      type:
+                        type: string
+                        example: bearer
+      tags:
+        - Endpoints
+  /api/user:
+    post:
+      summary: 'Criação de usuário'
+      operationId: criaoDeUsurio
+      description: 'Cria um novo usuário no sistema.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'Usuário criado com sucesso'
+                  data: {  }
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Usuário criado com sucesso'
+                  data:
+                    type: object
+                    properties: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Nome do usuário. Exemplo: Maria'
+                  example: provident
+                  nullable: false
+                lastname:
+                  type: string
+                  description: 'Sobrenome. Exemplo: Silva'
+                  example: voluptatibus
+                  nullable: false
+                phone:
+                  type: string
+                  description: 'Telefone. Exemplo: +55 (11) 94321-6788'
+                  example: iste
+                  nullable: false
+                email:
+                  type: string
+                  description: 'E-mail. Exemplo: maria@example.com'
+                  example: riley.auer@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Senha. Exemplo: senha123'
+                  example: 'L=4d=v"-LHWWmp.'
+                  nullable: false
+              required:
+                - name
+                - lastname
+                - phone
+                - email
+                - password
+  '/api/user/{id}':
+    get:
+      summary: 'Exibe um usuário'
+      operationId: exibeUmUsurio
+      description: 'Retorna os dados de um usuário específico.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: null
+                  data: {  }
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: null
+                  data:
+                    type: object
+                    properties: {  }
+      tags:
+        - Endpoints
+    put:
+      summary: 'Atualiza um usuário'
+      operationId: atualizaUmUsurio
+      description: 'Atualiza os dados de um usuário existente.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'Usuário atualizado com sucesso'
+                  data: {  }
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Usuário atualizado com sucesso'
+                  data:
+                    type: object
+                    properties: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Nome. Exemplo: João'
+                  example: aut
+                  nullable: false
+                lastname:
+                  type: string
+                  description: 'Sobrenome. Exemplo: Pereira'
+                  example: eum
+                  nullable: false
+                phone:
+                  type: string
+                  description: 'Telefone. Exemplo: (11) 91234-5678'
+                  example: id
+                  nullable: false
+                email:
+                  type: string
+                  description: 'E-mail. Exemplo: joao@example.com'
+                  example: carlee.terry@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Senha nova. Exemplo: novaSenha123'
+                  example: 'Cj5tw]pUm>%^rPTDk-^['
+                  nullable: false
+              required:
+                - name
+                - lastname
+                - phone
+                - email
+    delete:
+      summary: 'Remove um usuário'
+      operationId: removeUmUsurio
+      description: 'Deleta um usuário do sistema.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'Usuário excluído com sucesso'
+                  data: {  }
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Usuário excluído com sucesso'
+                  data:
+                    type: object
+                    properties: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'ID do usuário. Exemplo: 1'
+        example: 15
+        required: true
+        schema:
+          type: integer
+  /api/user/index:
+    post:
+      summary: 'Lista de usuários'
+      operationId: listaDeUsurios
+      description: 'Retorna lista de usuários com filtros opcionais por nome ou e-mail.'
+      parameters:
+        -
+          in: query
+          name: name
+          description: 'Nome para filtro. Exemplo: Maria'
+          example: quis
+          required: false
+          schema:
+            type: string
+            description: 'Nome para filtro. Exemplo: Maria'
+            example: quis
+            nullable: false
+        -
+          in: query
+          name: email
+          description: 'E-mail para filtro. Exemplo: maria@example.com'
+          example: bogisich.darrin@example.org
+          required: false
+          schema:
+            type: string
+            description: 'E-mail para filtro. Exemplo: maria@example.com'
+            example: bogisich.darrin@example.org
+            nullable: false
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: null
+                  data: []
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: null
+                  data:
+                    type: array
+                    example: []
+      tags:
+        - Endpoints
+tags:
+  -
+    name: Endpoints
+    description: ''

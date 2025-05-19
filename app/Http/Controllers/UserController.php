@@ -21,34 +21,14 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     path="/api/user/index",
-     *     summary="Lista de usuários",
-     *     tags={"Usuários"},
-     *     description="Lista usuários com filtros opcionais de nome e e-mail",
-     *     @OA\RequestBody(
-     *         required=false,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="Maria"),
-     *             @OA\Property(property="email", type="string", example="maria@example.com")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Lista de usuários",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="message", type="string", example=null),
-     *             @OA\Property(property="data", type="array", @OA\Items(
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="Maria"),
-     *                 @OA\Property(property="lastname", type="string", example="Silva"),
-     *                 @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
-     *                 @OA\Property(property="email", type="string", example="maria@example.com")
-     *             ))
-     *         )
-     *     )
-     * )
+     * Lista de usuários
+     *
+     * Retorna lista de usuários com filtros opcionais por nome ou e-mail.
+     *
+     * @authenticated
+     * @queryParam name string Nome para filtro. Exemplo: Maria
+     * @queryParam email string E-mail para filtro. Exemplo: maria@example.com
+     * @response 200 {"status":"success","message":null,"data":[]}
      */
     public function index(Request $request)
     {
@@ -74,37 +54,17 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     path="/api/user",
-     *     summary="Registro de usuário",
-     *     tags={"Usuários"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"name", "lastname", "phone", "email", "password"},
-     *             @OA\Property(property="name", type="string", example="Maria"),
-     *             @OA\Property(property="lastname", type="string", example="Silva"),
-     *             @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
-     *             @OA\Property(property="email", type="string", example="maria@example.com"),
-     *             @OA\Property(property="password", type="string", example="senha123")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Usuário criado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="message", type="string", example="Usuário criado com sucesso"),
-     *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="Maria"),
-     *                 @OA\Property(property="lastname", type="string", example="Silva"),
-     *                 @OA\Property(property="phone", type="string", example="+55 (11) 94321-6788"),
-     *                 @OA\Property(property="email", type="string", example="maria@example.com")
-     *             )
-     *         )
-     *     )
-     * )
+     * Criação de usuário
+     *
+     * Cria um novo usuário no sistema.
+     *
+     * @authenticated
+     * @bodyParam name string required Nome do usuário. Exemplo: Maria
+     * @bodyParam lastname string required Sobrenome. Exemplo: Silva
+     * @bodyParam phone string required Telefone. Exemplo: +55 (11) 94321-6788
+     * @bodyParam email string required E-mail. Exemplo: maria@example.com
+     * @bodyParam password string required Senha. Exemplo: senha123
+     * @response 201 {"status":"success","message":"Usuário criado com sucesso","data":{}}
      */
     public function store(Request $request)
     {
@@ -139,25 +99,13 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *     path="/api/user/{id}",
-     *     summary="Exibe um usuário",
-     *     tags={"Usuários"},
-     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Usuário retornado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="message", type="string", example=null),
-     *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="Maria"),
-     *                 @OA\Property(property="email", type="string", example="maria@example.com")
-     *             )
-     *         )
-     *     )
-     * )
+     * Exibe um usuário
+     *
+     * Retorna os dados de um usuário específico.
+     *
+     * @authenticated
+     * @urlParam id integer required ID do usuário. Exemplo: 1
+     * @response 200 {"status":"success","message":null,"data":{}}
      */
     public function show($id)
     {
@@ -173,35 +121,18 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Put(
-     *     path="/api/user/{id}",
-     *     summary="Atualiza um usuário",
-     *     tags={"Usuários"},
-     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="João"),
-     *             @OA\Property(property="lastname", type="string", example="Pereira"),
-     *             @OA\Property(property="phone", type="string", example="(11) 91234-5678"),
-     *             @OA\Property(property="email", type="string", example="joao@example.com"),
-     *             @OA\Property(property="password", type="string", example="novaSenha123")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Usuário atualizado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="message", type="string", example="Usuário atualizado com sucesso"),
-     *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="João"),
-     *                 @OA\Property(property="email", type="string", example="joao@example.com")
-     *             )
-     *         )
-     *     )
-     * )
+     * Atualiza um usuário
+     *
+     * Atualiza os dados de um usuário existente.
+     *
+     * @authenticated
+     * @urlParam id integer required ID do usuário. Exemplo: 1
+     * @bodyParam name string required Nome. Exemplo: João
+     * @bodyParam lastname string required Sobrenome. Exemplo: Pereira
+     * @bodyParam phone string required Telefone. Exemplo: (11) 91234-5678
+     * @bodyParam email string required E-mail. Exemplo: joao@example.com
+     * @bodyParam password string Senha nova. Exemplo: novaSenha123
+     * @response 200 {"status":"success","message":"Usuário atualizado com sucesso","data":{}}
      */
     public function update(Request $request, User $user)
     {
@@ -234,25 +165,13 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Delete(
-     *     path="/api/user/{id}",
-     *     summary="Remove um usuário",
-     *     tags={"Usuários"},
-     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Usuário removido com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="message", type="string", example="Usuário excluído com sucesso"),
-     *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="João"),
-     *                 @OA\Property(property="email", type="string", example="joao@example.com")
-     *             )
-     *         )
-     *     )
-     * )
+     * Remove um usuário
+     *
+     * Deleta um usuário do sistema.
+     *
+     * @authenticated
+     * @urlParam id integer required ID do usuário. Exemplo: 1
+     * @response 200 {"status":"success","message":"Usuário excluído com sucesso","data":{}}
      */
     public function destroy($id)
     {

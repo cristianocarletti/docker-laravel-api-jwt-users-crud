@@ -1,0 +1,383 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Laravel",
+        "_postman_id": "14c5be5b-4940-4eaf-a91c-c73d9a7137c8",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Login do usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"ymitchell@example.com\",\"password\":\"'nuZ\\\\hY)7rLQ\"}"
+                        },
+                        "description": "Autentica o usu\u00e1rio e retorna o token JWT.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"user\":{},\"auth\":{\"token\":\"...\",\"type\":\"bearer\"}}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"status\":\"error\",\"message\":\"N\u00e3o autorizado\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Registro de usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"aut\",\"lastname\":\"quis\",\"phone\":\"aliquam\",\"email\":\"ahmad51@example.net\",\"password\":\"NY=[1W(Ja3yij]\"}"
+                        },
+                        "description": "Registra o usu\u00e1rio e retorna o token JWT.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"Usu\u00e1rio criado com sucesso\",\"user\":{},\"auth\":{\"token\":\"...\",\"type\":\"bearer\"}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Logout do usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Invalida o token JWT e limpa o cache."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"Logout realizado com sucesso.\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\":\"error\",\"message\":\"Erro ao realizar logout.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Refresh do token JWT",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/refresh",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/refresh"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retorna novo token e dados do usu\u00e1rio."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"user\":{},\"auth\":{\"token\":\"...\",\"type\":\"bearer\"}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Cria\u00e7\u00e3o de usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"provident\",\"lastname\":\"voluptatibus\",\"phone\":\"iste\",\"email\":\"riley.auer@example.net\",\"password\":\"L=4d=v\\\"-LHWWmp.\"}"
+                        },
+                        "description": "Cria um novo usu\u00e1rio no sistema."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"status\":\"success\",\"message\":\"Usu\u00e1rio criado com sucesso\",\"data\":{}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Exibe um usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "15",
+                                    "description": "ID do usu\u00e1rio. Exemplo: 1"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retorna os dados de um usu\u00e1rio espec\u00edfico."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":null,\"data\":{}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Atualiza um usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "ID do usu\u00e1rio. Exemplo: 1"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"aut\",\"lastname\":\"eum\",\"phone\":\"id\",\"email\":\"carlee.terry@example.net\",\"password\":\"Cj5tw]pUm>%^rPTDk-^[\"}"
+                        },
+                        "description": "Atualiza os dados de um usu\u00e1rio existente."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"Usu\u00e1rio atualizado com sucesso\",\"data\":{}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Remove um usu\u00e1rio",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "15",
+                                    "description": "ID do usu\u00e1rio. Exemplo: 1"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Deleta um usu\u00e1rio do sistema."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"Usu\u00e1rio exclu\u00eddo com sucesso\",\"data\":{}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Lista de usu\u00e1rios",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/index",
+                            "query": [
+                                {
+                                    "key": "name",
+                                    "value": "quis",
+                                    "description": "Nome para filtro. Exemplo: Maria",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "bogisich.darrin%40example.org",
+                                    "description": "E-mail para filtro. Exemplo: maria@example.com",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/user\/index?name=quis&email=bogisich.darrin%40example.org"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retorna lista de usu\u00e1rios com filtros opcionais por nome ou e-mail."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":null,\"data\":[]}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}
